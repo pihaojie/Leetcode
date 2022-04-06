@@ -1,0 +1,32 @@
+2022 04 06
+题目：给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。如果数组中不存在目标值 target，返回 [-1, -1]。
+     进阶：你可以设计并实现时间复杂度为 O(log n) 的算法解决此问题吗？
+思路：两个for循环，一个从前找到第一个等于target的值，一个从后找到最后一个等于target的值，然后返回即可
+     进阶：时间复杂度为 O(log n) 即二分法，可这题二分法解细节好多，我还不会，呜呜呜，还是以后再二分法吧，暴力yyds
+收获：(一定要学会二分法，小声bb)
+代码：
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+    vector<int>ans;
+    for(int i=0;i<nums.size();i++)
+    {
+        if(nums[i]==target)
+        {
+           ans.push_back(i);
+           break;  
+        }
+    }
+    for(int i=nums.size()-1;i>=0;i--)
+    {
+        if(nums[i]==target)
+        {
+           ans.push_back(i);
+           return ans;  
+        }
+    }
+    ans.push_back(-1);
+    ans.push_back(-1);
+    return ans;
+    }
+};
