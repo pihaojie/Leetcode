@@ -3,8 +3,8 @@
      进阶：你可以设计并实现时间复杂度为 O(log n) 的算法解决此问题吗？
 思路：两个for循环，一个从前找到第一个等于target的值，一个从后找到最后一个等于target的值，然后返回即可
      进阶：时间复杂度为 O(log n) 即二分法，可这题二分法解细节好多，我还不会，呜呜呜，还是以后再二分法吧，暴力yyds
-收获：(一定要学会二分法，小声bb)
-代码：
+收获：(一定要学会二分法，小声bb),第二天后终于学会了二分法，并总结二分法代码模板(首页)
+左右循环代码：
 class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
@@ -27,6 +27,46 @@ public:
     }
     ans.push_back(-1);
     ans.push_back(-1);
+    return ans;
+    }
+};
+二分法代码：
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+    int n=nums.size();
+    vector<int>ans(2,-1);
+    if(n==0)return ans;
+    int l=0,r=n-1;
+    while(l<r)
+    {
+        int mid=(l+r)/2;
+        if(nums[mid]>=target)
+        {
+            r=mid;
+        }
+        else
+        {
+            l=mid+1;
+        }
+    }
+    if(nums[r]!=target)
+        return ans;
+    ans[0]=r;
+    l=0,r=n-1;
+    while(l<r)
+    {
+        int mid=(l+r+1)/2;
+        if(nums[mid]<=target)
+        {
+            l=mid;
+        }
+        else
+        {
+            r=mid-1;
+        }
+    }
+    ans[1]=r;
     return ans;
     }
 };
