@@ -1,0 +1,32 @@
+2022 04 08
+题目：请你判断一个 9 x 9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。数字 1-9 在每一行只能出现一次。数字 1-9 在每一列只能出现一次。数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。（请参考示意图）。注意：一个有效的数独（部分已被填充）不一定是可解的。只需要根据以上规则，验证已经填入的数字是否有效即可。空白格用 '.' 表示。
+思路：建立3个行 列 块的9*10矩阵，列为10是为了最大为9方便与数组中的数一一对应。起初，将行 列 块的二维矩阵全部设为0，然后两个for循环遍历大数独，是"."则跳过，是数则把行 列 块对应位置变为1，遍历大数独时，先判断行 列 块对应位置是否为1，为1则返回false。
+收获：想法真奇妙
+代码：
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+    int col[9][10]={0};
+    int rom[9][10]={0};
+    int box[9][10]={0};
+    for(int i=0;i<9;i++)
+    {
+        for(int j=0;j<9;j++)
+        {
+            if(board[i][j]=='.')
+                continue;
+            int value=board[i][j]-'0';
+            if(col[i][value])
+                return false;
+            if(rom[j][value])
+                return false;
+            if(box[j/3+i/3*3][value])
+                return false;
+            col[i][value]=1;
+            rom[j][value]=1;
+            box[j/3+i/3*3][value]=1;
+        }
+    }
+    return true;
+    }
+};
