@@ -1,0 +1,23 @@
+2022 04 12
+题目：给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。子数组是数组中的一个连续部分。
+思路：result用来相加，max用来取最大值，若result小于0，则放弃前面的数字重新开始相加
+代码：
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+    int n=nums.size();
+    int result=0;
+    int dp=-10000;
+    for(int i=0;i<n;i++)
+    {
+        result+=nums[i];
+        dp=max(dp,result);
+        if(result<0)
+        {
+            result=0;
+        }
+
+    }
+    return dp;
+    }
+};
