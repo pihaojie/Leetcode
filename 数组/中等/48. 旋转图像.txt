@@ -1,0 +1,43 @@
+2022 04 12
+题目：给定一个 n × n 的二维矩阵 matrix 表示一个图像。请你将图像顺时针旋转 90 度。你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。
+思路：
+1.先上下反转，再对称反转
+2.变换前后，列变为行，变化前的列和变化后的行相加=n-1；
+收获：善于发现坐标之间的关系。
+代码1：
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+    int n=matrix.size();
+    for(int i=0;i<n/2;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            swap(matrix[i][j],matrix[n-i-1][j]);
+        }
+    }
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i;j<n;j++)
+        {
+            swap(matrix[i][j],matrix[j][i]);
+        }
+    }
+    }
+};
+代码2：
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+    int n=matrix.size();
+    auto matrix_x=matrix;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            matrix_x[j][n-i-1]=matrix[i][j];
+        }
+    }
+    matrix=matrix_x;
+    }
+};
