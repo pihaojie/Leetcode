@@ -1,0 +1,22 @@
+2022 04 12
+题目：给定一个非负整数数组 nums ，你最初位于数组的第一个下标 。数组中的每个元素代表你在该位置可以跳跃的最大长度。判断你是否能够到达最后一个下标。
+思路：dp取当前能跳到的最远距离，if(i<=dp)判断当前能跳到的最远距离内取最大距离，防止[3,2,1,0,4]此类情况出现
+代码：
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+    int dp=0;
+    for(int i=0;i<nums.size();i++)
+    {
+        if(i<=dp)
+        {
+            dp=max(dp,i+nums[i]);
+            if(dp>=nums.size()-1)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+    }
+};
