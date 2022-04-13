@@ -1,0 +1,27 @@
+2022 04 13
+题目：以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。请你合并所有重叠的区间，并返回 一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间 。
+思路：创建一个新的vector<vector<int>> ans,然后比较ans的尾部和下一个intervals的left的值，若小于，则直接放入ans,若大于，则把ans的尾部的值换位max(ans.back()[1],r)
+收获：取vector尾部的值，ans.back().
+代码：
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+    vector<vector<int>> ans;
+    sort(intervals.begin(),intervals.end());
+    int n=intervals.size();
+    for(int i=0;i<n;i++)
+    { 
+        int l=intervals[i][0];
+        int r=intervals[i][1];
+       if(!ans.size()||ans.back()[1]<l)
+       {
+           ans.push_back({l,r});
+       }
+       else 
+       {
+           ans.back()[1]=max(ans.back()[1],r);
+       }
+    }
+    return ans;
+    }
+};
