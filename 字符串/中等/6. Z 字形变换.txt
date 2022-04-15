@@ -1,0 +1,30 @@
+2022 04 15
+题目：将一个给定字符串 s 根据给定的行数 numRows ，以从上往下、从左到右进行 Z 字形排列。比如输入字符串为 "PAYPALISHIRING" 行数为 3 时，排列如下：
+P   A   H   N
+A P L S I I G
+Y   I   R
+之后，你的输出需要从左往右逐行读取，产生出一个新的字符串，比如："PAHNAPLSIIGYIR"。请你实现这个将字符串进行指定行数变换的函数：string convert(string s, int numRows);
+思路：z字形排列是有规律的，以PAYP为一个循环，后面的，第一行和最后一行只有一个数字，中间的行有两个数字，且下一个循环与上一个循环坐标相差，t(一个循环的长度),设立坐标i在行数处循环，j每次按t加，即可加入每个循环每行的第一个数，而中间行的第二个数的坐标为j+t-i,需在if中加入i>0&&i<numRows-1的条件，判断此时行非第一行和最后一行，总循环时i+j<s.size()
+收获：学会发现坐标之间的关系。
+代码：
+class Solution {
+public:
+    string convert(string s, int numRows) {
+    int t=numRows*2-2;
+    string ans;
+    if(numRows==1||numRows>s.size())
+        return s;
+    for(int i=0;i<numRows;i++)
+    {
+        for(int j=0;j<s.size()-i;j+=t)
+        {
+            ans+=s[j+i];
+            if(i>0&&j+t-i<s.size()&&i<numRows-1)
+            {
+                ans+=s[j+t-i];
+            }
+        }
+    }
+    return ans;
+    }
+};
