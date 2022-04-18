@@ -1,0 +1,31 @@
+2022 04 18
+题目：给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。有效字符串需满足：左括号必须用相同类型的右括号闭合。左括号必须以正确的顺序闭合。
+思路：用stack,凡是遇到左括号都放入栈内，遇到右括号可判断栈顶与右括号是否匹配，匹配可通过map键值对来判断，若匹配，则移除栈顶元素，继续，若不匹配，则return false。
+代码：
+class Solution {
+public:
+    bool isValid(string s) {
+    map<char,int>  kuohao{{'(',1},{'{',2},{'[',3},{']',4},{'}',5},{')',6}};
+    stack<char> st;
+    for(char c:s)
+    {
+        if(kuohao[c]>=1&&kuohao[c]<=3)
+        {
+            st.push(c);
+        }
+        else if(!st.empty()&&kuohao[c]+kuohao[st.top()]==7)
+        {
+            st.pop();
+        }
+        else{
+            return false;
+            break;
+        }
+    }
+    if(!st.empty())
+    {
+        return false;
+    }    
+    return true;
+    }
+};
