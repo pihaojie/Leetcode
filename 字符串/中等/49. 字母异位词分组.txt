@@ -1,0 +1,22 @@
+2022 04 18
+题目：给你一个字符串数组，请你将 字母异位词 组合在一起。可以按任意顺序返回结果列表。字母异位词 是由重新排列源单词的字母得到的一个新单词，所有源单词中的字母通常恰好只用一次。
+思路：建立map<string,vector<string>> mp，然后遍历字符串，把字符串赋值给另一个，然后对赋值的字符串排序，然后把排序后的字符串送给mp的第一个，原字符串送给第二个，这样遇到字母异位时，map的第一个是相同的，最终输出mp的第二个值。
+代码：
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+    unordered_map<string,vector<string>> mp;
+    for(string & st:strs)
+    {
+        string yuan=st;
+        sort(yuan.begin(),yuan.end());
+        mp[yuan].push_back(st);
+    }
+    vector<vector<string>> ans;
+    for(auto iter=mp.begin();iter!=mp.end();iter++)
+    {
+        ans.push_back(iter->second);
+    }
+    return ans;
+    }
+};
