@@ -1,0 +1,32 @@
+2022 04 18
+题目：给你两个二进制字符串，返回它们的和（用二进制表示）。输入为非空字符串且只包含数字 1 和 0。
+思路：先把两个字符串补齐，size小的字符串前面全插入0，然后从后面相加，用carry表示进位，然后余2赋值给当前的i,最后判断craay，若为0，则直接输出，若为1，则在首位插入1。
+代码：
+class Solution {
+public:
+    string addBinary(string a, string b) {
+    int lena=a.size(),lenb=b.size();
+    while(lena<lenb)
+    {
+        a.insert(a.begin(),'0');
+        lena++;
+    }
+    while(lenb<lena)
+    {
+        b.insert(b.begin(),'0');
+        lenb++;
+    }
+    int carry=0;
+    for(int i=lena-1;i>=0;i--)
+    {
+        int sum=a[i]+b[i]-'0'-'0'+carry;
+        a[i]=sum%2+'0';
+        carry=sum/2;
+    }
+    if(carry==1)
+    {
+        a.insert(a.begin(),'1');
+    }
+    return a;
+    }
+};
