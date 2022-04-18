@@ -1,0 +1,33 @@
+2022 04 18
+题目：数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且有效的括号组合。示例 1：输入：n = 3。输出：["((()))","(()())","(())()","()(())","()()()"]。
+思路：回溯，分左括号和右括号回溯，若左括号<n,则继续回溯，若右括号小于左括号，则继续回溯。
+代码：
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+    string res;
+    vector<string>ans;
+    backtrack(ans,res,0,0,n);
+    return ans;
+    }
+    void backtrack(vector<string> &ans,string &res,int close,int open,int n)
+    {
+        if(res.size()==n*2)
+        {
+            ans.push_back(res);
+            return;
+        }
+        if(close<n)
+        {
+            res.push_back('(');
+            backtrack(ans,res,close+1,open,n);
+            res.pop_back();
+        }
+        if(open<close)
+        {
+            res.push_back(')');
+            backtrack(ans,res,close,open+1,n);
+            res.pop_back();
+        }
+    }
+};
