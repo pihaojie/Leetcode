@@ -1,0 +1,40 @@
+2022 04 18
+题目：给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。注意：不能使用任何内置的 BigInteger 库或直接将输入转换为整数。
+思路：用最原始的两数相乘然后数字的每一位分别与另一个数字的每一位相乘，然后把结果存放在数组中，然后把得到的数组除10得到的数给前一个，余10得到的数给自己，然后判断第一位是否为0，为0则摄取，比如10*10和99*99得到的结果分别是三位和四位数，那么10*10的第一位就会为0，最后再把结果转为字符型。
+代码：
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+    if(num1=="0"||num2=="0")
+    {
+        return "0";
+    }
+    int m=num1.size(),n=num2.size();
+    vector<int> array(m+n);
+    for(int i=m-1;i>=0;i--)
+    {
+        int x=num1[i]-'0';
+        for(int j=n-1;j>=0;j--)
+        {
+            int y=num2[j]-'0';
+            array[i+j+1]+=x*y;
+        }
+    }
+    for(int i=m+n-1;i>0;i--)
+    {
+        array[i-1]+=array[i]/10;
+        array[i]=array[i]%10;
+    }
+    int index=array[0]==0?1:0;
+    string ans;
+    for(int i=index;i<m+n;i++)
+    {
+        ans.push_back(array[i]);
+    }
+    for(auto &c:ans)
+    {
+        c+='0';
+    }
+    return ans;
+    }
+};
