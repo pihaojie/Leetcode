@@ -1,1 +1,31 @@
 2022 04 19
+题目：给你一个字符串 s 和一个字符串列表 wordDict 作为字典。请你判断是否可以利用字典中出现的单词拼接出 s 。注意：不要求字典中出现的单词全部都使用，并且字典中的单词可以重复使用。
+思路：两个while循环
+代码：
+class Solution {
+public:
+    string reverseWords(string s) {
+    int len=s.size()-1;
+    string ans;
+    while(len>=0)
+    {
+        int num=0;
+        while(len>=0&&s[len]==' ')
+        {
+            len--;
+        }
+        while(len>=0&&s[len]!=' ')
+        {
+            len--;
+            num++;
+        }
+        if(num)
+        {
+            ans+=s.substr(len+1,num)+" ";
+            //ans+=' ';
+        }
+    }
+    ans.pop_back();
+    return ans;
+    }
+};
