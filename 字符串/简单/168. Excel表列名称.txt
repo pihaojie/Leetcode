@@ -1,0 +1,17 @@
+2022 04 21
+题目：给你一个整数 columnNumber ，返回它在 Excel 表中相对应的列名称。例如：A -> 1 B -> 2 C -> 3 ... Z -> 26 AA -> 27 AB -> 28  ...
+代码：
+class Solution {
+public:
+    string convertToTitle(int columnNumber) {
+    string ans;
+    while(columnNumber>0)
+    {
+        columnNumber--;
+        ans+=columnNumber%26+'A';
+        columnNumber/=26;
+    }
+    reverse(ans.begin(),ans.end());
+    return ans;
+    }
+};
