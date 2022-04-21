@@ -1,0 +1,18 @@
+2022 04 21
+题目：给定一组非负整数 nums，重新排列每个数的顺序（每个数不可拆分）使之组成一个最大的整数。注意：输出结果可能非常大，所以你需要返回一个字符串而不是整数。
+思路：
+代码：
+class Solution {
+public:
+    string largestNumber(vector<int>& nums) {
+        vector<string> v;
+        for(int t:nums) v.push_back(to_string(t));
+        sort(v.begin(), v.end(), [](const string &a,const string &b){
+            return a+b > b+a; //两个字符串先后组合大小降序排列
+        });
+        if(v[0]=="0") return "0";
+        string ans="";
+        for(string t:v) ans+=t;
+        return ans;
+    }
+};
