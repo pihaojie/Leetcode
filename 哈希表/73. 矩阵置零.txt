@@ -1,0 +1,32 @@
+2022 04 22
+题目：给定一个 m x n 的矩阵，如果一个元素为 0 ，则将其所在行和列的所有元素都设为 0 。请使用原地算法。
+思路：定义两个bool类型的数组，大小分别是m和n，如果某个元素为0，则把该元素的坐标 i,j,然后对两个数组的i和j为true,之后遍历，遇到true的全变为0；
+代码：
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+    int m=matrix.size();
+    int n=matrix[0].size();
+    vector<bool> col(m),rol(n);
+    for(int i=0;i<m;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(!matrix[i][j])
+            {
+                col[i]=rol[j]=true;
+            }
+        }
+    }
+    for(int i=0;i<m;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(col[i]||rol[j])
+            {
+                matrix[i][j]=0;
+            }
+        }
+    }
+    }
+};
