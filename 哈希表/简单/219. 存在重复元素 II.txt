@@ -1,0 +1,23 @@
+2022 04 23
+题目：给你一个整数数组 nums 和一个整数 k ，判断数组中是否存在两个 不同的索引 i 和 j ，满足 nums[i] == nums[j] 且 abs(i - j) <= k 。如果存在，返回 true ；否则，返回 false 。
+思路：set是集合，hash集合中最多只存放k个数字，然后遍历。
+代码：
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+    set<int> hash;
+    for(int i=0;i<nums.size();i++)
+    {
+        if(hash.count(nums[i]))
+        {
+            return true;
+        }
+        hash.insert(nums[i]);
+        if(hash.size()>k)
+        {
+            hash.erase(nums[i-k]);
+        }
+    }
+    return false;
+    }
+};
