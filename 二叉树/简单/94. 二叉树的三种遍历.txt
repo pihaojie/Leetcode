@@ -1,0 +1,61 @@
+2022 04 24
+题目：给定一个二叉树的根节点 root ，返回它的中序遍历。
+思路：前序遍历 根左右，中序遍历 左根右，后序遍历 左右根
+前序遍历代码：
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        stack<TreeNode*> S;
+        vector<int> v;
+        TreeNode* rt = root;
+        while(rt || S.size()){
+            while(rt){
+                S.push(rt->right);
+                v.push_back(rt->val);
+                rt=rt->left;
+            }
+            rt=S.top();S.pop();
+        }
+        return v;        
+    }
+}
+中序遍历代码：
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> ans;
+    stack<TreeNode*> stk;
+    while(root!=nullptr||!stk.empty())
+    {
+        while(root!=nullptr)
+        {
+            stk.push(root);
+            root=root->left;
+        }
+        root=stk.top();
+        stk.pop();
+        ans.push_back(root->val);
+        root=root->right;
+    }
+    return ans;
+    }
+};
+后序遍历代码：
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        stack<TreeNode*> S;
+        vector<int> v;
+        TreeNode* rt = root;
+        while(rt || S.size()){
+            while(rt){
+                S.push(rt->left);
+                v.push_back(rt->val);
+                rt=rt->right;
+            }
+            rt=S.top();S.pop();
+        }
+        reverse(v.begin(),v.end());
+        return v;
+    }
+}
