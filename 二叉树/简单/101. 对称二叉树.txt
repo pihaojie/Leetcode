@@ -1,0 +1,29 @@
+2022 04 27
+题目：给你一个二叉树的根节点 root，检查它是否轴对称。
+思路：递归，一个左节点，一个右节点
+代码：
+class Solution {
+public:
+    bool shu(TreeNode* q,TreeNode* p)
+    {
+        if(!p&&!q)
+        {    
+            return true;
+        }
+        else if(!q||!p)
+        {
+            return false;
+        }
+        else if(p->val!=q->val)
+        {   
+            return false;
+        }
+        else
+        {    
+            return shu(q->left,p->right)&&shu(q->right,p->left);
+        }
+    }
+    bool isSymmetric(TreeNode* root) {
+    return shu(root,root);
+    }
+};
