@@ -1,0 +1,15 @@
+2022 04 27
+题目：给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。
+代码：
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+    if(root==nullptr)
+        return 0;
+    TreeNode* left=invertTree(root->left);
+    TreeNode* right=invertTree(root->right);
+    root->left=right;
+    root->right=left;
+    return root;
+    }
+};
