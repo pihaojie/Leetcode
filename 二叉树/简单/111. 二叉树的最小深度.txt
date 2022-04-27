@@ -1,0 +1,17 @@
+2022 04 27
+题目：给定一个二叉树，找出其最小深度。最小深度是从根节点到最近叶子节点的最短路径上的节点数量。说明：叶子节点是指没有子节点的节点。
+代码：
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+    if(root==nullptr)
+        return 0;
+    if(root->left==nullptr&&root->right==nullptr)
+        return 1;
+    int m1=minDepth(root->left);
+    int m2=minDepth(root->right);
+    if(m1==0||m2==0)  
+        return m1+m2+1;
+    return min(m1,m2)+1;
+    }
+};
