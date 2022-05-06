@@ -1,0 +1,44 @@
+2022 05 06
+题目：给你二叉树的根节点 root ，返回其节点值的 锯齿形层序遍历 。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。
+代码：
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
+        stack<TreeNode*> stk;
+        if(!root)
+            return ans;
+        TreeNode* shu;
+        stk.push(root);
+        bool flag=true;
+        while(!stk.empty()){
+            int n=stk.size();
+            stack<TreeNode*> sk;
+            ans.push_back(vector<int>());
+            for(int i=0;i<n;i++){
+                shu=stk.top();
+                stk.pop();
+                ans.back().push_back(shu->val);
+                if(flag){
+                    if(shu->left){
+                        sk.push(shu->left);
+                    }
+                    if(shu->right){
+                        sk.push(shu->right);
+                    }  
+                }
+                else{
+                    if(shu->right){
+                        sk.push(shu->right);
+                    }
+                    if(shu->left){
+                        sk.push(shu->left);
+                    }
+                }
+            }
+            flag=!flag;
+            stk=sk;
+        }
+        return ans;
+    }
+};
