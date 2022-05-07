@@ -1,0 +1,27 @@
+2022 05 07
+题目：给定两个整数数组 preorder 和 inorder ，其中 preorder 是二叉树的先序遍历， inorder 是同一棵树的中序遍历，请构造二叉树并返回其根节点。
+代码：
+class Solution {
+public:
+    int id;
+    unordered_map<int,int> map;
+    TreeNode* helper(int left,int right,vector<int>& preorder, vector<int>& inorder){
+    if(left>right)
+        return nullptr;
+    int root_val=preorder[id];
+    TreeNode* root=new TreeNode(root_val);
+    int idx=map[root_val];
+    id++;
+    root->left=helper(left,idx-1,preorder,inorder);
+    root->right=helper(idx+1,right,preorder,inorder);
+    return root;
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+    id=0;
+    int i=0;
+    for(auto & a: inorder){
+        map[a]=i++;
+    }
+    return helper(0,preorder.size()-1,preorder,inorder);
+    }
+};
