@@ -1,0 +1,23 @@
+2022 05 11
+题目：给你二叉搜索树的根节点 root ，该树中的 恰好 两个节点的值被错误地交换。请在不改变其结构的情况下，恢复这棵树 。
+代码：
+class Solution {
+public:
+    TreeNode* pre;
+    TreeNode* node1;
+    TreeNode* node2;
+    void inorder(TreeNode* node) {
+        if (node == NULL) return;
+        backtracking(node->left);
+        // 若不是第一个节点 node1之前没有出现 但是现在出现了 记录下来(node1 被记录下后就不会变)
+        if (pre != NULL && node1 == NULL && node->val < pre->val) node1 = pre;
+        // 若不是第一个节点 node1 出现了 且满足node2的条件 记录下来
+        if (pre != NULL && node1 != NULL && node->val < pre->val) node2 = node;
+        pre = node;
+        backtracking(node->right);
+    }
+    void recoverTree(TreeNode* root) {
+        backtracking(root);
+        swap(node1->val, node2->val);
+    }
+};
