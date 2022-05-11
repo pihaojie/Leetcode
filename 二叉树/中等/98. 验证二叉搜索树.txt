@@ -1,0 +1,19 @@
+2022 05 11
+题目：给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。有效二叉搜索树定义如下：节点的左子树只包含小于当前节点的数。节点的右子树只包含大于当前节点的数。所有左子树和右子树自身必须也是二叉搜索树。
+代码：
+class Solution {
+public:
+    bool BST(TreeNode* root,long lower,long upper){
+        if(root==nullptr){
+            return true;
+        }
+        if(root->val<=lower||root->val>=upper){
+            return false;
+        }
+        else
+            return BST(root->left,lower,root->val)&&BST(root->right,root->val,upper);
+    }
+    bool isValidBST(TreeNode* root) {
+        return BST(root,LONG_MIN,LONG_MAX);
+    }
+};
