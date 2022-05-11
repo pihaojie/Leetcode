@@ -1,0 +1,35 @@
+2022 05 11
+题目：给你二叉树的根节点 root 和一个整数目标和 targetSum ，找出所有从根节点到叶子节点路径总和等于给定目标和的路径。叶子节点是指没有子节点的节点。
+思路：回溯
+代码：
+public:
+    vector<int> combine;
+    vector<vector<int>> ans;
+    void backtrack(TreeNode* root,int targetSum){
+        if(!root->left&&!root->right&&targetSum==0){
+            ans.push_back(combine);
+            return;
+        }
+        if(root->left){
+            targetSum-=root->left->val;
+            combine.push_back(root->left->val);
+            backtrack(root->left,targetSum);
+            combine.pop_back();
+            targetSum+=root->left->val;
+        }
+        if(root->right){
+            targetSum-=root->right->val;
+            combine.push_back(root->right->val);
+            backtrack(root->right,targetSum);
+            combine.pop_back();
+            targetSum+=root->right->val;
+        }
+    }
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        if(!root)
+            return ans;
+        combine.push_back(root->val);
+        backtrack(root,targetSum-root->val);
+        return ans;
+    }
+};
