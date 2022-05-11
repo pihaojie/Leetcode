@@ -1,0 +1,26 @@
+2022 05 11
+题目:给定一个单链表的头节点  head ，其中的元素 按升序排序 ，将其转换为高度平衡的二叉搜索树。本题中，一个高度平衡二叉树是指一个二叉树每个节点 的左右两个子树的高度差不超过 1。
+代码：
+class Solution {
+public:
+    TreeNode* bst(vector<int>& nums,int left,int right){
+        if(left>right){
+            return nullptr;
+        }
+        int mid=(left+right)/2;
+        TreeNode* root=new TreeNode(nums[mid]);
+        root->left=bst(nums,left,mid-1);
+        root->right=bst(nums,mid+1,right);
+        return root;
+    }
+    TreeNode* sortedListToBST(ListNode* head) {
+        if(!head)
+            return nullptr;
+        vector<int> lianbiao;
+        while(head){
+            lianbiao.push_back(head->val);
+            head=head->next;
+        }
+        return bst(lianbiao,0,lianbiao.size()-1);
+    }
+};
