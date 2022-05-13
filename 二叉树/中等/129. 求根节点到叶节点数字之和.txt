@@ -1,0 +1,22 @@
+2022 05 13
+题目：给你一个二叉树的根节点 root ，树中每个节点都存放有一个 0 到 9 之间的数字。每条从根节点到叶节点的路径都代表一个数字：例如，从根节点到叶节点的路径 1 -> 2 -> 3 表示数字 123 。
+计算从根节点到叶节点生成的所有数字之和 。叶节点是指没有子节点的节点。
+代码：
+class Solution {
+public:
+    int backtrack(TreeNode* root,int prenum){
+        if(root==nullptr){
+            return 0;
+        }
+        int num=prenum*10+root->val;
+        if(root->left==nullptr&&root->right==nullptr){
+            return num;
+        }
+        else{
+            return backtrack(root->left,num)+backtrack(root->right,num);
+        }
+    }
+    int sumNumbers(TreeNode* root) {
+        return backtrack(root,0);
+    }
+};
