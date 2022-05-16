@@ -1,0 +1,25 @@
+2022 05 16
+题目：给定一个二叉搜索树的根节点 root ，和一个整数 k ，请你设计一个算法查找其中第 k 个最小元素（从 1 开始计数）。
+思路：中序遍历
+代码：
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        stack<TreeNode*> stk;
+        vector<int> ans;
+        while(root||!stk.empty()){
+            while(root){
+                stk.push(root);
+                root=root->left;
+            }
+            root=stk.top();
+            stk.pop();
+            k--;
+            if(k==0){
+                return root->val;
+            }
+            root=root->right;
+        }
+        return 0;
+    }
+};
