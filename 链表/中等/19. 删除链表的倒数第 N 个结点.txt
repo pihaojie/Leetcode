@@ -1,0 +1,22 @@
+2022 05 16
+题目：给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+代码：
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* ans=new ListNode(0,head);
+        int len=0;
+        while(head!=nullptr){
+            head=head->next;
+            len++;
+        }
+        ListNode* res=ans;
+        for(int i=0;i<len-n;i++){
+            res=res->next;
+        }
+        res->next=res->next->next;
+        ListNode* a=ans->next;
+        delete ans;
+        return a;
+    }
+};
