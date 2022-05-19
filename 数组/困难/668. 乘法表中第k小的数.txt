@@ -1,0 +1,22 @@
+2022 05 19
+题目：几乎每一个人都用乘法表。但是你能在乘法表中快速找到第k小的数字吗？给定高度m 、宽度n 的一张 m * n的乘法表，以及正整数k，你需要返回表中第k小的数字。
+思路：：二分查找
+class Solution {
+public:
+    int findKthNumber(int m, int n, int k) {
+        //二分查找，这想法nb，暴力破解时间会超时
+        int left=1,right=m*n;
+        while(left<right){
+            int mid=(left+right)>>1;
+            int count=mid/n*n;
+            for(int i=mid/n+1;i<=m;i++){
+                count+=mid/i;
+            }
+            if(count>=k)
+                right=mid;
+            else
+                left=mid+1;
+        }
+        return left;
+    }
+};
