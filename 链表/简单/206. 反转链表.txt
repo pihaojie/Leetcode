@@ -1,0 +1,17 @@
+2022 05 19
+题目：给你单链表的头节点 head，请你反转链表，并返回反转后的链表。
+代码：
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* pre=nullptr;
+        ListNode* curr=head;
+        while(curr){
+            ListNode* temp=curr->next;
+            curr->next=pre;
+            pre=curr;
+            curr=temp;
+        }
+        return pre;
+    }
+};
