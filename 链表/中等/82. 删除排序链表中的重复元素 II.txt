@@ -1,0 +1,24 @@
+2022 05 22
+题目：给定一个已排序的链表的头head，删除原始链表中所有重复数字的节点，只留下不同的数字。返回已排序的链表。
+代码：
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(!head)
+            return head;
+        ListNode* ans=new ListNode(0,head);
+        ListNode* p=ans;
+        while(p->next&&p->next->next){
+            if(p->next->val==p->next->next->val){
+                int x=p->next->val;
+                while(p->next&&p->next->val==x){
+                    p->next=p->next->next;
+                }
+            }
+            else{
+                p=p->next;
+            }
+        }
+        return ans->next;
+    }
+};
