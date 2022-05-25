@@ -1,0 +1,27 @@
+2022 05 25
+题目：给定一个单链表L的头节点head，单链表 L 表示为：L0 → L1 → … → Ln - 1 → Ln 请将其重新排列后变为：L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
+思路：创建vector<listnode*>数组，然后把结点都放入数组中，然后将数组的首位结点相连。
+代码：
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        if(!head->next)
+            return;
+        vector<ListNode*> res;
+        ListNode* p=head;
+        while(p){
+            res.push_back(p);
+            p=p->next;
+        }
+        int i=0,j=res.size()-1;
+        while(i<j){
+            res[i]->next=res[j];
+            i++;
+            if(i==j)
+                break;
+            res[j]->next=res[i];
+            j--;
+        }
+        res[i]->next=nullptr;
+    }
+};
