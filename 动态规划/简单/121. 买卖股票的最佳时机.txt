@@ -1,0 +1,15 @@
+2022 05 28
+题目：给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。你只能选择某一天买入这只股票，并选择在未来的某一个不同的日子卖出该股票。设计一个算法来计算你所能获取的最大利润。返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。
+代码：
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int money=0;
+        int low=10000;
+        for(int price : prices){
+            money=max(money,price-low);
+            low=min(low,price);
+        }
+        return money;
+    }
+};
