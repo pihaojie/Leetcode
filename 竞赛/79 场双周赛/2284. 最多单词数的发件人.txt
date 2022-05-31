@@ -1,0 +1,38 @@
+中等 通过
+2022 05 31
+题目：给你一个聊天记录，共包含 n 条信息。给你两个字符串数组 messages 和 senders ，其中 messages[i] 是 senders[i] 发出的一条信息 。一条信息是若干用单个空格连接的单词 ，信息开头和结尾不会有多余空格。发件人的单词计数是这个发件人总共发出的单词数 。注意，一个发件人可能会发出多于一条信息。请你返回发出单词数最多的发件人名字。如果有多个发件人发出最多单词数，请你返回字典序最大的名字。注意：字典序里，大写字母小于小写字母。"Alice" 和 "alice" 是不同的名字。
+代码：
+class Solution {
+public:
+    string largestWordCount(vector<string>& messages, vector<string>& senders) {
+        vector<int> word;
+       
+        for(int i=0;i<messages.size();i++){
+            string a=messages[i];
+            int len=1;
+            for(int j=0;j<a.size();j++){
+                if(a[j]==' '){
+                    len++;
+                }
+            }
+            word.push_back(len);
+    
+        }
+        map<string,int> mp;
+        for(int i=0;i<senders.size();i++){
+            mp[senders[i]]+=word[i];
+        }
+        string ans;
+        int num=0;
+        auto it=mp.begin();
+        while(it != mp.end())
+        {
+            if(it->second >=num){
+                num=it->second;
+                ans=max(ans,it->first);
+            }
+            it ++;
+        }
+        return ans;
+    }
+};
