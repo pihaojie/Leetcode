@@ -1,0 +1,21 @@
+简单 通过
+2022 05 31
+题目：给你一个下标从0开始长度为n的字符串num ，它只包含数字。如果对于每个0 <= i < n的下标i，都满足数位i在num中出现了num[i]次，那么请你返回true，否则返回 false 。
+代码：
+class Solution {
+public:
+    bool digitCount(string num) {
+        map<char,int> mp;
+        for(char s:num){
+            mp[s]++;
+        }
+        for(int i=0;i<num.size();i++){
+            char a=i+'0';
+            int b=num[i]-'0';
+            if(b!=mp[a]){
+                return false;
+            }
+        }
+        return true;
+    }
+};
