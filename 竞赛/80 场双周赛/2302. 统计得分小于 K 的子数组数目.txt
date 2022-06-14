@@ -1,0 +1,20 @@
+困难 未通过(思路一样，代码出错)
+题目：一个数字的 分数 定义为数组之和 乘以 数组的长度。比方说，[1, 2, 3, 4, 5] 的分数为 (1 + 2 + 3 + 4 + 5) * 5 = 75 。给你一个正整数数组 nums 和一个整数 k ，请你返回 nums 中分数 严格小于 k 的 非空整数子数组数目。子数组 是数组中的一个连续元素序列。
+思路：
+代码：
+class Solution {
+public:
+    long long countSubarrays(vector<int>& nums, long long k) {
+        long long ans=0;
+        long long sum=0;
+        for(long long i=0,j=0;i<nums.size();i++){
+            while(j<nums.size()&&(j-i+1)*(sum+nums[j])<k){
+                sum+=nums[j];
+                j++;
+            }
+            ans+=j-i;
+            sum-=nums[i];
+        }
+        return ans;
+    }
+};
