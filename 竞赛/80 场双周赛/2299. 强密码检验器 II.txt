@@ -1,0 +1,42 @@
+简单 通过
+题目：如果一个密码满足以下所有条件，我们称它是一个 强 密码：它有至少 8 个字符。
+至少包含 一个小写英文 字母。
+至少包含 一个大写英文 字母。
+至少包含 一个数字 。
+至少包含 一个特殊字符 。特殊字符为："!@#$%^&*()-+" 中的一个。
+它 不 包含 2 个连续相同的字符（比方说 "aab" 不符合该条件，但是 "aba" 符合该条件）。
+给你一个字符串 password ，如果它是一个 强 密码，返回 true，否则返回 false 。
+代码：
+class Solution {
+public:
+    bool strongPasswordCheckerII(string password) {
+        bool daxie=false,xiaoxie=false,num=false,teshu=false;
+        bool shu=true;
+        if(password.size()<8){
+            return false;
+        }
+        for(int i=0;i<password.size();i++){
+            if(password[i]>='A'&&password[i]<='Z'){
+                daxie=true;
+            }
+            if(password[i]>='a'&&password[i]<='z'){
+                xiaoxie=true;
+            }
+            if(password[i]>='0'&&password[i]<='9'){
+                num=true;
+            }
+                  if(password[i]=='!'||password[i]=='#'||password[i]=='@'||password[i]=='$'||password[i]=='%'||password[i]=='^'||password[i]=='&'||password[i]=='*'||password[i]=='('||password[i]==')'||password[i]=='-'||password[i]=='+'){
+                teshu=true;
+            }
+            if(i>0&&password[i]==password[i-1]){
+                shu=false;
+            }
+        }
+        if(daxie&&xiaoxie&&num&&teshu&&shu){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+};
