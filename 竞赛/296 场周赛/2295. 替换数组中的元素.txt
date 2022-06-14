@@ -1,0 +1,20 @@
+中等，未通过
+题目：给你一个下标从0开始的数组 nums ，它包含n个互不相同的正整数。请你对这个数组执行m个操作，在第i个操作中，你需要将数字operations[i][0]替换成operations[i][1]。题目保证在第i个操作中：operations[i][0] 在 nums 中存在。operations[i][1] 在 nums 中不存在。请你返回执行完所有操作后的数组。
+思路：先把map放入map中，然后遍历operations,查找替换，map删除键即删除整个键值
+代码：
+class Solution {
+public:
+    vector<int> arrayChange(vector<int>& nums, vector<vector<int>>& operations) {
+        map<int,int> mp;
+        for(int i=0;i<nums.size();i++){
+            mp[nums[i]]=i;
+        }
+        for(auto p:operations){
+            int pos=mp[p[0]];
+            nums[pos]=p[1];
+            mp.erase(p[0]);
+            mp[p[1]]=pos;
+        }
+        return nums;
+    }
+};
