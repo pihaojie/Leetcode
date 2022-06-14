@@ -1,0 +1,27 @@
+简单 通过
+题目：给你一个下标从0开始的二维整数数组 brackets，其中 brackets[i] = [upperi, percenti]，表示第i个税级的上限是upperi，征收的税率为percenti 。税级按上限从低到高排序（在满足 0 < i < brackets.length 的前提下，upperi-1 < upperi）。税款计算方式如下：不超过 upper0 的收入按税率 percent0 缴纳，接着 upper1 - upper0 的部分按税率 percent1 缴纳，然后 upper2 - upper1 的部分按税率 percent2 缴纳，以此类推，给你一个整数 income 表示你的总收入。返回你需要缴纳的税款总额。与标准答案误差不超 10-5 的结果将被视作正确答案。
+思路：顺序
+代码：
+class Solution {
+public:
+    double calculateTax(vector<vector<int>>& b, int income) {
+        double ans=0;
+        if(income>=b[0][0]){
+            ans+=(double)b[0][0]*b[0][1]/100;
+        }
+        else if(income<b[0][0]){
+            ans+=(double)income*b[0][1]/100;
+            return ans;
+        }
+        for(int i=1;i<b.size();i++){
+            if(income>=b[i][0]){
+                ans+=(double)(b[i][0]-b[i-1][0])*b[i][1]/100;
+            }
+            else{
+                ans+=(double)(income-b[i-1][0])*b[i][1]/100;
+                break;
+            }
+        }
+        return ans;
+    }
+};
