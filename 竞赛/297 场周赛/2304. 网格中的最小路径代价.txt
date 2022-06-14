@@ -1,0 +1,22 @@
+中等 未通过(思路一致，但代码有点小问题，我是fw)
+题目：给你一个下标从0开始的整数矩阵grid，矩阵大小为mxn ，由从 0 到 m * n - 1 的不同整数组成。你可以在此矩阵中，从一个单元格移动到下一行的任何其他单元格。如果你位于单元格(x,y)，且满足 x < m - 1 ，你可以移动到 (x + 1, 0), (x + 1, 1), ..., (x + 1, n - 1) 中的任何一个单元格。注意：在最后一行中的单元格不能触发移动。每次可能的移动都需要付出对应的代价，代价用一个下标从0开始的二维数组moveCost表示，该数组大小为 (m * n) x n ，其中 moveCost[i][j]是从值为i的单元格移动到下一行第j列单元格的代价。从grid最后一行的单元格移动的代价可以忽略。grid一条路径的代价是：所有路径经过的单元格的值之和加上所有移动的代价之和。从第一行任意单元格出发，返回到达最后一行任意单元格的最小路径代价。
+思路：动态规划，二维动态数组，先初始化为最大值，然后把第一行置为矩阵grid的第一行的值，之后二维动态数组的值为上一行所有数到该数中最小的一个。
+代码：
+class Solution {
+public:
+    int minPathCost(vector<vector<int>>& grid, vector<vector<int>>& moveCost) {
+        int m=grid.size(),n=grid[0].size();
+        vector<vector<int>> f(m,vector<int>(n,INT_MAX));
+        for(int i=0;i<n;i++){
+            f[0][i]=grid[0][i];
+        }
+        for(int i=1;i<m;i++){
+            for(int j=0;j<n;j++){
+                for(int k=0;k<n;k++){
+                    f[i][j]=min(f[i][j],f[i-1][k]+moveCost[grid[i-1][k]][j]+grid[i][j]);
+                }
+            }
+        }
+        return *min_element(f[m-1].begin(),f[m-1].end());
+    }
+};
