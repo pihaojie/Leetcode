@@ -1,0 +1,28 @@
+困难 未通过
+题目：给你两个字符串 s 和 sub 。同时给你一个二维字符数组mappings ，其中 mappings[i] = [oldi, newi] 表示你可以将 sub 中任意数目的 oldi 字符替换为 newi 。sub 中每个字符不能被替换超过一次。如果使用mappings替换0个或者若干个字符，可以将sub变成 s 的一个子字符串，请你返回 true，否则返回 false 。一个子字符串是字符串中连续非空的字符序列。
+思路：xian把a放入map中，然后遍历查找
+代码：
+class Solution {
+public:
+    bool matchReplacement(string s, string sub, vector<vector<char>>& a) {
+        map<char,set<char>> mp;
+        for(auto& p:a){
+            mp[p[0]].insert(p[1]);
+        }
+        int n=s.size(),m=sub.size();
+        for(int i=0;i<=n-m;i++){
+            bool ok=true;
+            for(int j=0;j<m;j++){
+                if(s[i+j]==sub[j]||mp[sub[j]].count(s[i+j])){
+                    continue;
+                }
+                ok=false;
+                break;
+            }
+            if(ok){
+                return true;
+            }
+        }
+        return false;
+    }
+};
